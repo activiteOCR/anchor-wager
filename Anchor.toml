@@ -1,0 +1,21 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+shaker = "CRrstAnx8VxnxbKA45VBDfuChSCuNNyqmNLXRiDXHTnu"
+
+[programs.devnet]
+shaker = "CRrstAnx8VxnxbKA45VBDfuChSCuNNyqmNLXRiDXHTnu"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "/home/vesper3023/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
