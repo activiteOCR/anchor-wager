@@ -16,6 +16,7 @@ describe("shaker", () => {
     const id = new BN(1);
     const merchantName = "Coffee Shop";
     const amount = new BN(500);
+    const prediction = "Team1 win"; // New field for prediction
 
     // Find the program address
     const [expenseAccount, bump] = PublicKey.findProgramAddressSync(
@@ -28,7 +29,7 @@ describe("shaker", () => {
     );
 
     // Call the initialize_expense function
-    await program.rpc.initializeExpense(id, merchantName, amount, {
+    await program.rpc.initializeExpense(id, merchantName, amount, prediction, {
       accounts: {
         expenseAccount,
         authority: provider.wallet.publicKey,
@@ -41,6 +42,7 @@ describe("shaker", () => {
     assert.equal(account.id.toString(), id.toString());
     assert.equal(account.merchantName, merchantName);
     assert.equal(account.amount.toString(), amount.toString());
+    assert.equal(account.prediction, prediction); // Verify prediction
     assert.equal(
       account.owner.toString(),
       provider.wallet.publicKey.toString()

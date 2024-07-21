@@ -1,10 +1,9 @@
 use anchor_lang::prelude::*;
 
-declare_id!("CRrstAnx8VxnxbKA45VBDfuChSCuNNyqmNLXRiDXHTnu");
+declare_id!("6jHCAwbMrxP8RoRyvRnEMuHDXi2gBM6RuUWvygRSEeok");
 
 #[program]
 pub mod shaker {
-
     use super::*;
 
     pub fn initialize_expense(
@@ -12,12 +11,14 @@ pub mod shaker {
         id: u64,
         merchant_name: String,
         amount: u64,
+        prediction: String, // New field for prediction
     ) -> Result<()> {
         let expense_account = &mut ctx.accounts.expense_account;
 
         expense_account.id = id;
         expense_account.merchant_name = merchant_name;
         expense_account.amount = amount;
+        expense_account.prediction = prediction; // Set prediction
         expense_account.owner = *ctx.accounts.authority.key;
 
         Ok(())
@@ -28,10 +29,12 @@ pub mod shaker {
         _id: u64,
         merchant_name: String,
         amount: u64,
+        prediction: String, // New field for prediction
     ) -> Result<()> {
         let expense_account = &mut ctx.accounts.expense_account;
         expense_account.merchant_name = merchant_name;
         expense_account.amount = amount;
+        expense_account.prediction = prediction; // Update prediction
 
         Ok(())
     }
@@ -50,8 +53,8 @@ pub struct InitializeExpense<'info> {
     #[account(
         init,
         payer = authority,
-        space = 8 + 8 + 32+ (4 + 12)+ 8 + 1,
-        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()], 
+        space = 8 + 8 + 32 + (4 + 24) + 8 + 1 + (4 + 10), // Adjusted space for prediction
+        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()],
         bump
     )]
     pub expense_account: Account<'info, ExpenseAccount>,
@@ -67,7 +70,7 @@ pub struct ModifyExpense<'info> {
 
     #[account(
         mut,
-        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()], 
+        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()],
         bump
     )]
     pub expense_account: Account<'info, ExpenseAccount>,
@@ -84,7 +87,7 @@ pub struct DeleteExpense<'info> {
     #[account(
         mut,
         close = authority,
-        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()], 
+        seeds = [b"expense", authority.key().as_ref(), id.to_le_bytes().as_ref()],
         bump
     )]
     pub expense_account: Account<'info, ExpenseAccount>,
@@ -99,5 +102,5 @@ pub struct ExpenseAccount {
     pub owner: Pubkey,
     pub merchant_name: String,
     pub amount: u64,
+    pub prediction: String, // New field for prediction
 }
-

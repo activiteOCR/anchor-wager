@@ -4,17 +4,17 @@
 seeds = false
 skip-lint = false
 
-[programs.localnet]
-shaker = "CRrstAnx8VxnxbKA45VBDfuChSCuNNyqmNLXRiDXHTnu"
-
 [programs.devnet]
-shaker = "CRrstAnx8VxnxbKA45VBDfuChSCuNNyqmNLXRiDXHTnu"
+shaker = "6jHCAwbMrxP8RoRyvRnEMuHDXi2gBM6RuUWvygRSEeok"
+
+[programs.localnet]
+shaker = "6jHCAwbMrxP8RoRyvRnEMuHDXi2gBM6RuUWvygRSEeok"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "Devnet"
 wallet = "/home/vesper3023/.config/solana/id.json"
 
 [scripts]
