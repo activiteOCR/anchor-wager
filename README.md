@@ -24,3 +24,9 @@ Sporty wager is a decentralized application (dApp) built on the Solana blockchai
    - Install [Anchor](https://www.anchor-lang.com/), Rust and Solana CLI. Then head over to `/anchor-wager` directory and follow instructions from Anchor docs to deploy the program to devnet.
 
 2. To launch the frontend, go to [sporty-wager repo](https://github.com/activiteOCR/sporty-wager), clone it and head over to `/app/src` directory and enter: `yarn install && yarn dev`
+
+### Back end used stack
+
+    - anchor: 0.29.0
+    - solana-cli: 1.18.12
+    - yarn: 1.22.22
